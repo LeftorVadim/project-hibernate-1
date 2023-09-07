@@ -52,7 +52,6 @@ public class PlayerRepositoryDB implements IPlayerRepository {
             Transaction transaction = session.beginTransaction();
             session.save(player);
             transaction.commit();
-            session.close();
             return player;
         }
     }
@@ -63,7 +62,6 @@ public class PlayerRepositoryDB implements IPlayerRepository {
             Transaction transaction = session.beginTransaction();
             session.update(player);
             transaction.commit();
-            session.close();
             return player;
         }
     }
@@ -72,7 +70,6 @@ public class PlayerRepositoryDB implements IPlayerRepository {
     public Optional<Player> findById(long id) {
         try (Session session = sessionFactory.openSession()) {
             Player player = session.find(Player.class, id);
-            session.close();
             return Optional.of(player);
         }
     }
@@ -82,7 +79,6 @@ public class PlayerRepositoryDB implements IPlayerRepository {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(player);
-            session.close();
             transaction.commit();
         }
     }
